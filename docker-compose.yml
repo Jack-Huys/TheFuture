@@ -1,0 +1,21 @@
+version: '3.8'
+
+services:
+  backend:
+    build: ./backend
+    ports:
+      - "8000:8000"
+    environment:
+      - MINIMAX_API_KEY=${MINIMAX_API_KEY}
+      - MINIMAX_BASE_URL=${MINIMAX_BASE_URL}
+      - MODEL_NAME=${MODEL_NAME}
+      - AI_SDK_TYPE=${AI_SDK_TYPE}
+    restart: unless-stopped
+
+  frontend:
+    build: ./frontend
+    ports:
+      - "80:80"
+    depends_on:
+      - backend
+    restart: unless-stopped
